@@ -10,7 +10,41 @@ I am currently developing this under ZFS on Linux in Ubuntu, but all varients of
 
 ## Installation
 
-You can either use a `*.wbm.gz` from the releases tab, or "`git clone https://github.com/jonmatifa/zfsmanager.git`" from the webmin root directory (Centos/RHEL: `/usr/libexec/webmin`, Debian/Ubuntu: `/usr/share/webmin`), this will clone everything into the zfsmanager subfolder (which will be created). Then copy the `config` file to `/etc/webmin/zfsmanager/config` once that is done, you can then keep up to date with by "`git pull`" from the `/usr/libexec/webmin/zfsmanager` directory.
+You will need `perl-Data-Dumper` installed for everything to work. (e.g. on CentOS do "`yum install perl-Data-Dumper`").
+
+### Packaged
+
+You can download the latest release from the [Releases tab](https://github.com/jonmatifa/zfsmanager/releases) as a `zfsmanager-VERSION.wbm.gz` file.
+
+Navigate to `Webmin Configuration` -> `Webmin Modules` and install using `From uploaded file`.
+
+### From Git
+
+You can get the latest code from git.
+
+```sh
+cd /usr/libexec/webmin # For RHEL/CentOS
+# OR
+cd /usr/share/webmin # For Debian/Ubuntu
+
+# Get zfsmanager code
+git clone https://github.com/jonmatifa/zfsmanager.git
+
+# Copy default config
+mkdir /etc/webmin/zfsmanager
+cp zfsmanager/config /etc/webmin/zfsmanager
+
+# Add zfsmanager to end of the lines with the desired users
+vi /etc/webmin/webmin.acl
+
+# That last part can also be done in the UI:
+# - Navigate to Webmin Users -> USERNAME -> Available Webmin modules
+# - Tick the box marked ZFS Manager
+# - Press Save
+
+# To keep up to date (in zfsmanager directory)
+git pull
+```
 
 ## Feedback
 
