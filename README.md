@@ -46,6 +46,29 @@ vi /etc/webmin/webmin.acl
 git pull
 ```
 
+## Packaging
+
+Webmin modules can be packaged following instructions [here](https://doxfer.webmin.com/Webmin/Module_Development). For example, to make an rpm for CentOS.
+
+```sh
+# Outside of zfsmanager folder
+wget https://raw.githubusercontent.com/webmin/webmin/master/makemodulerpm.pl
+chmod +x makemodulerpm.pl
+
+mkdir -p ~/rpmbuild/SPECS
+mkdir -p ~/rpmbuild/SOURCES
+mkdir -p ~/rpmbuild/RPMS/noarch
+
+./makemodulerpm.pl --rpm-dir ~/rpmbuild \
+                   --licence BSD \
+                   --requires perl-Data-Dumper \
+                   --url https://github.com/jonmatifa/zfsmanager \
+                   zfsmanager/ \
+                   $(git --git-dir zfsmanager/.git/ describe --tags --abbrev=0 | cut -c 2-)
+
+# RPM is now in ~/rpmbuild/RPMS/noarch
+```
+
 ## Feedback
 
 I am interested in what you think, even during this early alpha phase. The issue tracker can be used not only for bug reports but also feature requests and comments in general. Tracking and fixing bugs is important, but I also want to know what you think about the idea of the project and things like usability and UI design.
